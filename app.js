@@ -12,6 +12,8 @@ async function latestPost() {
 }
 latestPost();
 
+
+
 function displayAllPost(posts) {
     // console.log(posts)
     if (posts) {
@@ -51,14 +53,13 @@ function displayAllPost(posts) {
     `
         postsContainer.append(div)
     })
-
 }
 
 function displayLatestPost(posts) {
     // console.log(posts)
     const latestPostContainer = document.getElementById('latest-posts')
     posts.forEach(post => {
-        console.log(post)
+        // console.log(post)
         const div = document.createElement('div')
         div.classList = 'card bg-base-100 w-96 shadow-sm'
         div.innerHTML = `
@@ -88,3 +89,25 @@ function displayLatestPost(posts) {
     })
 
 }
+
+document.getElementById('search-btn').addEventListener('click', function () {
+    const searchField = document.getElementById('search-field').value;
+    const postsContainer = document.getElementById('posts')
+    postsContainer.textContent = ''
+
+    async function searchPost(searchItem) {
+        const searchPost = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchItem}`)
+        const data = await searchPost.json();
+        displaySearchPost(data)
+    }
+    searchPost(searchField);
+
+    function displaySearchPost(data) {
+        displayAllPost(data.posts)
+        // console.log(data)
+    }
+
+    // clear
+    document.getElementById('search-field').value = '';
+
+})

@@ -79,8 +79,8 @@
                         </p>
                         <label class="input rounded-full px-2 text-black h-13">
 
-                            <input type="search" class="grow" placeholder="Search here anything" />
-                            <a class="btn rounded-full px-5 bg-[#797DFC] text-white">Search</a>
+                            <input id="search-field" type="search" class="grow" placeholder="Search here anything" />
+                            <a id="search-btn" class="btn rounded-full px-5 bg-[#797DFC] text-white">Search</a>
 
                         </label>
                     </div>
@@ -106,13 +106,15 @@
             </div>
 
             <div class="flex gap-20 my-20">
-                <div class="flex-2 " id="posts">
+                <div class="flex-2 ">
                     <div class="text-center">
                         <span id="loading" class="loading loading-spinner loading-xl"></span>
                     </div>
-                    <!-- show all posts start -->
+                    <div id="posts">
+                        <!-- show all posts start -->
 
-                    <!-- show all posts end -->
+                        <!-- show all posts end -->
+                    </div>
                 </div>
                 <div class="flex-1 bg-[#797DFC1A] p-10 rounded-2xl">
                     <div class="flex justify-between items-center">
