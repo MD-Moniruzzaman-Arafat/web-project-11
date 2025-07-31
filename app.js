@@ -1,18 +1,25 @@
 async function loadAllPost() {
     const posts = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts')
     const data = await posts.json()
-    displayPost(data.posts)
+    displayAllPost(data.posts)
 }
 loadAllPost();
 
-function displayPost(posts) {
+async function latestPost() {
+    const posts = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts')
+    const data = await posts.json()
+    displayLatestPost(data)
+}
+latestPost();
+
+function displayAllPost(posts) {
     // console.log(posts)
     if (posts) {
         document.getElementById('loading').classList.add('hidden')
     }
     const postsContainer = document.getElementById('posts')
     posts.forEach(post => {
-        console.log(post)
+        // console.log(post)
         const div = document.createElement('div');
         div.classList = "flex mb-5 p-10 gap-10 bg-[#797DFC1A] rounded-2xl";
         div.innerHTML = `
@@ -43,6 +50,41 @@ function displayPost(posts) {
     </div>
     `
         postsContainer.append(div)
+    })
+
+}
+
+function displayLatestPost(posts) {
+    // console.log(posts)
+    const latestPostContainer = document.getElementById('latest-posts')
+    posts.forEach(post => {
+        console.log(post)
+        const div = document.createElement('div')
+        div.classList = 'card bg-base-100 w-96 shadow-sm'
+        div.innerHTML = `
+    
+                        <figure class="m-5">
+                            <img src="${post?.cover_image}" />
+                        </figure>
+                        <div class="card-body">
+                            <p class="text-[#12132D99]"><i class="fa-solid fa-calendar"></i> ${post?.author?.posted_date ? post?.author?.posted_date : "No publish date"}</p>
+                            <h2 class="card-title">${post?.title}</h2>
+                            <p class="text-[#12132D99]">${post?.description}</p>
+                            <div class="card-actions items-center">
+                                <div class="avatar avatar-placeholder">
+                                    <div class="bg-neutral text-neutral-content w-8 rounded-full">
+                                        <img src="${post?.profile_image}" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="font-bold">${post?.author?.name}</p>
+                                    <p>${post?.author?.designation ? post?.author?.designation : "Unknown"}</p>
+                                </div>
+                            </div>
+                        </div>
+                    
+        `
+        latestPostContainer.appendChild(div)
     })
 
 }
