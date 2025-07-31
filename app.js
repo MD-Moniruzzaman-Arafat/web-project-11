@@ -45,7 +45,7 @@ function displayAllPost(posts) {
                 <span><i class="fa-solid fa-eye"></i> ${post?.view_count}</span>
                 <span><i class="fa-solid fa-clock"></i> <span>${post?.posted_time}</span> min</span>
             </div>
-            <div class="bg-[#10B981] text-white px-2 py-1 rounded-full">
+            <div onclick="read('${post.title}','${post.view_count}')" class="bg-[#10B981] text-white px-2 py-1 rounded-full">
                 <i class="fa-solid fa-envelope-open"></i>
             </div>
         </div>
@@ -111,3 +111,18 @@ document.getElementById('search-btn').addEventListener('click', function () {
     document.getElementById('search-field').value = '';
 
 })
+
+let totalCount = 0;
+
+function read(data, data2) {
+    console.log(data, data2)
+    document.getElementById('count').innerText = totalCount += 1
+    const readPostContainer = document.getElementById('read-post');
+    const div = document.createElement('div');
+    div.classList = 'flex items-center bg-white rounded-2xl p-5 gap-3 mb-2'
+    div.innerHTML = `
+     <span>${data}</span>
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-eye"></i> ${data2}</span>
+    `
+    readPostContainer.appendChild(div);
+}
